@@ -47,4 +47,4 @@ center(space),ljust(space), rjust(space) - 지정한 공간에서 정렬
  - 변수 이름이나 식을 중괄호 안에 포함해 값을 문자열로 가져옴
     ex) print(f'The {thing.capitalize()} is in the {place:.^20}')
  - =를 통한 디버깅
-    ex) 
+    ex) print(f'{thing = :>4.4}')
