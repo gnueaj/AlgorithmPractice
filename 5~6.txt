@@ -19,7 +19,7 @@ letters[start : end ( : step)] - slice를 사용하여 step만큼 건너뛰며 s
                                - end 오프셋에 -3을 지정하면 -4번째 문자가 됨에 주의
 name.split(',') - 구분자를 기준으로 하나의 문자열을 작은 문자열들의 리스트로 나눔 
 crypto_list = ['Yeti', 'Bigfoot, 'Loch Ness Monster']
-crypto_string = ', '.join(crypto_list)
+crypto_string = ', '.join(crypto_list) - 결합할 문자열을 지정하여 문자열 리스트를 하나의 문자열로 결합
 print('Found:', crypto_string) -> Found: Yeti, Bigfoot, Loch Ness Monster
 - 문자열 리스트를 하나의 문자열로 결합
 strip,lstrip,rstrip('.') - 양쪽 끝의 문자 제거, 생략시 공백문자(' ', '\t', '\n')제거 
@@ -49,3 +49,27 @@ center(space),ljust(space), rjust(space) - 지정한 공간에서 정렬
     ex) print(f'The {thing.capitalize()} is in the {place:.^20}')
  - =를 통한 디버깅
     ex) print(f'{thing = :>4.4}')
+
+
+6. 반복문
+ㆍwhile문
+while count <= 5:
+    count += 1;
+    if count == 2 :
+        continue
+    if count == 3 :
+        break
+else:
+    print('No') # break문이 호출되지 않은 경우
+
+ㆍrange() 
+- range((start,)stop(,step))
+- 숫자 시퀀스를 생성하며, 순회 가능한 객체를 반환함
+
+ㆍfor문
+for x in range(0,3):
+    print(x)
+
+word = 'thud'
+for letter in word:
+    print(letter) # break, continue, else는 똑같이 동작함
