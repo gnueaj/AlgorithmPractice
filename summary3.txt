@@ -1,0 +1,30 @@
+6. 반복문
+ㆍwhile문
+while count <= 5:
+    count += 1;
+    if count == 2 :
+        continue
+    if count == 3 :
+        break
+else:
+    print('No') # break문이 호출되지 않은 경우
+
+ㆍrange() 
+- range((start,)stop(,step))
+- 숫자 시퀀스를 생성하며, 순회 가능한 객체를 반환함
+
+ㆍfor문
+for x in range(0,3):
+    print(x)
+
+word = 'thud'
+for letter in word:
+    print(letter) # break, continue, else는 똑같이 동작함
+
+
+7. 튜플과 리스트
+- 튜플은 불변하며, 리스트는 가변함
+
+ㆍ한 요소 이상의 튜플을 만들기 위해서는 각 요소 뒤에 콤마를 붙임
+ex) empty_tuple = (), one_marx = ('Groucho',), marx_tuple = 'Groucho', 'Chico', 'Harpo'
+

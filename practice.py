@@ -1,5 +1,2 @@
-a = 1000
-if a >= 3000:
-    print(a)
-elif a == 1000:
-    print(a+2000)
+t1 = 'Groucho', 'Chico', 'Harpo'
+print(type(t1))
