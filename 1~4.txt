@@ -1,3 +1,4 @@
+[연산자]
 / 나눗셈
 // 나눗셈(소숫점 이하 버림)
 ** 거듭제곱
@@ -25,6 +26,8 @@ else:
     print("Went over by", abs(diff))
 
 5 < X < 10 < a 가능
+
+[조건문]
 condition = True
 if condition:
     a

@@ -1,5 +1,6 @@
 8. 딕셔너리와 셋
-ㆍ딕셔너리
+
+[딕셔너리]
 - 값에 상응하는 고유한 키를 지정하며, 오프셋으로 항목을 선택할 수 없다.
 - 불변하는 파이썬의 어떤 타입(불리언, 정수, 부동소수점, 튜플, 문자열 등)이 될 수 있다.
 - 딕셔너리는 변경 가능하므로 키:값 요소를 추가, 삭제, 수정할 수 있다.
@@ -28,7 +29,7 @@ ex) some_pythons['John'] # 'Cleese'
     'John' in some_pythons # True
     some_pythons.get('John') # 'Cleese'
     some_pythons.get('John', 'Not a Python') # 존재하지 않을 경우 지정, 않을 경우 None
-ㆍ모든 키 얻기 : signals.keys() # dict_keys(['green', 'yellow'])
+ㆍ모든 키 얻기 : signals.keys() # dict_keys(['green', 'yellow']) # 또는 signals
 ㆍ모든 값 얻기 : signals.values()
 ㆍ모든 키-값 얻기 : signals.items()
 ㆍ길이 얻기 : len(signals)
@@ -64,4 +65,49 @@ ex1) word = 'letters'
 ex2) vowels = 'aeiou'
      word = 'onomatopoeia'
      vowel_counts = {letter: word.count(letter) for letter in set(word) if letter in vowels}
+
+
+[셋]
+-값은 버리고 키만 남은 딕셔너리와 같음
+-딕셔너리와 마찬가지로 각 키는 유일하며, 어떤 것이 존재하는지만 판단할 때 사용
+-키에 어떤 종보를 첨부해서 그 결과를 얻고 싶을 때 딕셔너리를 사용
+
+ㆍ생성하기
+-[]가 빈 리스트를 생성하고, {}는 빈 딕셔너리를 생성하므로 인터프리터는 빈 셋을 set()으로 출력함
+ex) empty_set = set()
+    even_numbers = {0, 2, 4, 6, 8}
+    set('letters')
+    set(['Dasher', 'Dancer', 'Prancer'])
+-셋은 순서와 상관없이 저장됨
+
+ㆍ길이 얻기: len()
+ㆍ항목 추가하기: s.add(4)
+ㆍ항목 삭제하기: s.remove(3)
+ㆍ순회하기: for과 in
+ㆍ멤버십 테스트: in
+ex) drinks = {
+    'martini': {'vodka', 'vermouth'},
+    'black russian': {'vodka','kahlua'},
+    'white russian': {'cream', 'kahlua', 'vodka'},
+    'manhattan': {'rye', 'vermouth', 'bitters'},
+    'screwdriver': {'orange juice', 'vodka'}
+    }
+    for name, contents in drinks.item():
+        if 'vodka' in contents and not('vermouth' in contents or 'crean' in contents):
+            print(name)
+ㆍ콤비네이션 연산자
+-셋 교집합 연산자 & 사용
+ex) for name, contents in drinks.items():
+        if 'vodka' in contents and not contents & {'vermouth', 'orange juice'}:
+            print(name)
+-두 음료의 재료 셋 저장
+bruss = drinks['black russian']
+wruss = drinks['white russian']
+a = {1, 2}
+b = {2, 3}
+a & b (또는 a.intersection(b)) # {2}
+a | b (또는 a.union(b)) # {1,2,3}
+ㆍ
+ㆍ  
+ㆍ
 
