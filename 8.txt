@@ -1,0 +1,67 @@
+8. 딕셔너리와 셋
+ㆍ딕셔너리
+- 값에 상응하는 고유한 키를 지정하며, 오프셋으로 항목을 선택할 수 없다.
+- 불변하는 파이썬의 어떤 타입(불리언, 정수, 부동소수점, 튜플, 문자열 등)이 될 수 있다.
+- 딕셔너리는 변경 가능하므로 키:값 요소를 추가, 삭제, 수정할 수 있다.
+- 다른 언어에서는 딕셔너리를 연관 배열, 해시, 해시맵 등으로 부르며 파이썬에서는 dict라고 부른다.
+- 딕셔너리의 키들은 반드시 고유해야 한다.
+- 리스트와 마찬가지로 딕셔너리를 할당한 후 변경할 때 딕셔너리를 참조하는 모든 이름도 변경된다.
+
+ㆍ딕셔너리 생성
+ex) empty_dict = {}
+    bierce = {
+        "day": "A period of twenty-four hours, mostly misspent",
+        "positive": "Mistaken at the top of one's voice",
+        "misportune": "The kind of fortune that never misses",
+    }
+    bierce = dict(day = "A period of twenty-four hours, mostly misspent",
+        positive = "Mistaken at the top of one's voice",
+        misportune = "The kind of fortune that never misses")
+
+    lol = [['a','b'],['c','d']] # 또는 [('a','b'),('c','d')], ['ab','cd'] 등
+    dict(lol)
+    {'a': 'b', 'c':'d', 'e':'f'}
+
+ㆍ항목 추가/변경 : python['key'] = 'value' # 끝에 추가된다
+ㆍ항목 얻기 
+ex) some_pythons['John'] # 'Cleese'
+    'John' in some_pythons # True
+    some_pythons.get('John') # 'Cleese'
+    some_pythons.get('John', 'Not a Python') # 존재하지 않을 경우 지정, 않을 경우 None
+ㆍ모든 키 얻기 : signals.keys() # dict_keys(['green', 'yellow'])
+ㆍ모든 값 얻기 : signals.values()
+ㆍ모든 키-값 얻기 : signals.items()
+ㆍ길이 얻기 : len(signals)
+
+ㆍ결합하기: {**a, **b}, a.update(b)
+ - 얕은 복사를 수행한다.
+ - 같은 키값이 있다면 두번째 딕셔너리 값으로 병합된다.
+ㆍ삭제하기: del pythons['Marx'], pythons.pop('Palin')
+ - pop()은 get()과 del을 함께 사용한다.
+ㆍ모든 항목 삭제하기: clear()
+
+ㆍ얕은 복사: original_signals = signals.copy() # 딕셔너리 값이 가변일 경우 deepcopy()사용
+ㆍ깊은 복사: deepcopy()
+ex) import copy
+signals = {'green' : 'go', 'yellow' : 'go faster', 'red': ['stop', 'smile']}
+signals_copy = copy.deepcopy(signals)
+signals['red'][1] = 'sweat'
+>>> signals_copy
+{'green' : 'go', 'yellow' : 'go faster', 'red': ['stop', 'smile']}
+
+ㆍ비교 연산자는 ==, !=만 사용가능
+ㆍ순회하기
+- 딕셔너리를 순회하면 키가 반환되며 값은 values(), 키와 값을 튜플로 반환하려면 items()메서드를 사용
+- 한번에 모두 튜플에 할당할 수 있다.
+ex) for card, contents in accusation.items():
+        print('Card', card, 'has the contents', contents)
+
+ㆍ딕셔너리 컴프리헨션 {키_표현식 : 값_표현식 for 표현식 in 순회 가능한 객체 (if 테스트)}
+ex1) word = 'letters'
+     letter_counts = {letter: word.count(letter) for letter in word}
+     # {'l': 1, 'e': 2, 't': 2, 'r': 1, 's': 1}
+
+ex2) vowels = 'aeiou'
+     word = 'onomatopoeia'
+     vowel_counts = {letter: word.count(letter) for letter in set(word) if letter in vowels}
+

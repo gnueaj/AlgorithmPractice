@@ -1,0 +1,28 @@
+9. 함수
+ㆍdef와 함수 이름, 괄호를 입력하며 콜론을 붙임
+ㆍ이름의 첫 글자는 영문자나 언더바를 사용해야 하며, 영문자, 숫자, 언더바만 사용할 수 있음
+ex) def run_something_with_args(func, arg1, arg2):
+        func(arg1, arg2)
+ㆍNone
+- 아무것도 없다는 것을 뜻하는 파이썬의 특별한 값임
+- False와 None을 구분하기 위해 is 연산자를 사용함
+ex) thing = None
+    if thing is None:
+        print("It's some thing")
+- 0, 0.0, '', [], (), {}, set() 등은 모두 False임
+
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
