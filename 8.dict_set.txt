@@ -95,19 +95,53 @@ ex) drinks = {
     for name, contents in drinks.item():
         if 'vodka' in contents and not('vermouth' in contents or 'crean' in contents):
             print(name)
+
 ㆍ콤비네이션 연산자
 -셋 교집합 연산자 & 사용
 ex) for name, contents in drinks.items():
         if 'vodka' in contents and not contents & {'vermouth', 'orange juice'}:
             print(name)
--두 음료의 재료 셋 저장
 bruss = drinks['black russian']
 wruss = drinks['white russian']
 a = {1, 2}
 b = {2, 3}
+bruss - wruss # set()
+wruss - bruss # {'cream'}
+bruss ^ wruss # {'cream'}
+bruss <= wruss # True, 부분집합
+bruss < wruss # True, 진부분집합
+wruss >= bruss # True, 상위집합
+wruss > bruss # True, 진상위집합 
 a & b (또는 a.intersection(b)) # {2}
 a | b (또는 a.union(b)) # {1,2,3}
-ㆍ
-ㆍ  
-ㆍ
+a - b (또는 a.difference(b)) # {1}
+a ^ b (또는 a.symmetric_difference(b)) # {1,3}
+a <= b (또는 a.issubset(b)) # False
+a >= b (또는 a.issuperset(b)) # False 
 
+ㆍ셋 컴프리헨션 {표현식 for 표현식 in 순회 가능한 객체 if 테스트}
+- 리스트, 딕셔너리 컴프리헨션과 같은 모양
+ex) a_set = {number for number in range(1, 6) if number % 3 == 1}
+
+ㆍ불변 셋 생성
+ex) frozenset({1,2,3}) 
+
+
+[지금까지 배운 자료구조]
+ㆍ[]를 사용한 리스트
+ㆍ()를 사용한 튜플
+ㆍ{}를 사용한 딕셔너리 또는 셋
+
+ㆍ셋을 제외하고 모두 대괄호로 항목에 접근한다.
+ㆍ리스트와 튜플의 경우 대괄호에 들어가는 값이 정수 오프셋이고 딕셔너리는 키다.
+ㆍ셋은 인덱스와 키가 없다.
+
+ㆍ자료구조 결합하기
+ex) marxes = ['Groucho', 'Chico', 'Harpo']
+    pythons = ['Chapman', 'Cleese', 'Gilliam', 'Jones', 'Palin']
+    stooges = ['Moe', 'Curly', 'Larry']
+
+    tuple_of_lists = marxes, pythons, stooges # 튜플의 각 요소는 리스트
+    list_of_lists = [marxes, pythons, stooges] # 리스트의 각 요소는 리스트
+    dict_of_lists = {'Marxes': marxes, 'Pythons': pythons, 'Stooges': stooges} 
+    # 딕셔너리의 각 값은 리스트
