@@ -1,15 +1,9 @@
-def echo(anything):
-    'echo returns its input argument'
-    return anything
+def knights2(saying):
+    def inner2():
+        return "We are the knights who say: %s" % saying
+    return inner2
 
-def print_if_true(thing, check):
-    '''
-    Prints the first argument if a second argument is true.
-    The operation is:
-        1. Check whether the *second* argument is true.
-        2. If it is, print the *first* argument.
-    '''
-    if check: 
-        print(thing)
-    
-print(echo.__doc__)
+a = knights2('Duck')
+b = knights2('hasenpfeffer')
+print(a())
+print(b())

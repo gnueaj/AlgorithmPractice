@@ -1,0 +1,32 @@
+11. 모듈과 패키지
+[모듈]
+- 파이썬 코드 파일이며, 개발자는 특별한 작업 없이 코드를 모듈로 사용할 수 있음
+- import문을 사용하여 다른 모듈의 코드를 참조
+- 확장자 py를 제외한 파이썬 파일의 이름을 입력
+ex) [fast.py]
+    from random import choice
+
+    places = ['KFC', 'Pizza Hut']
+
+    def pick():
+        return choice(places)
+    
+    [lunch.py]
+    import fast
+
+    place = fast.pick()
+    print("Let's go to", place)
+
+    # 두 파일을 같은 디렉터리에 저장 후 lunch.py를 실행하면 fast 모듈에 접근
+    # 모듈 fast.py의 pick()함수에서 표준 라이브러리인 random모듈의 choice함수만을 임포트
+
+- 에일리어스(alias)를 사용하여 가져올 수 있음
+ex) import fast as f
+    place = f.pick()
+    print("Let's go to", place)
+
+    from fast import pick as who_cares
+    place = who_cares()
+    print("Let's go to", place)
+
+[패키지]

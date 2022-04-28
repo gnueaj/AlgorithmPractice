@@ -95,13 +95,27 @@ ex) def echo(anything):
 
     echo(anything)
         echo returns its input argument
-        
-    >>> help(echo.__doc__)
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
+
+    >>> print(echo.__doc__)
+    echo returns its input argument
+
+ㆍ내부함수
+ex) def knights(saying):
+        def inner(quote):
+            return "We are the knights who say: '%s'" % quote
+        return inner(saying)
+    >>> knights('Ni!') # "We are the knights who say: 'Ni!'"
+
+ㆍ클로저
+- 다른 함수에 의해 동적으로 생성되며 외부 함수로부터 생성된 변수값을 변경하고 저장할 수 있는 함수
+ex) def knights2(saying):
+        def inner2():
+            return "We are the knights who say: '%s'" % saying
+        return inner2
+    >>> a = knights2('Duck')
+    >>> b = knights2('Hasenpfeffer')
+    >>> a()
+    "We are the knights who say: 'Duck'"
+    >>> b()
+    "We are the knights who say: 'Hasenpfeffer'"
+    # 이들을 호출하면 knights2()함수에 전달되어 사용된 saying을 기억함
