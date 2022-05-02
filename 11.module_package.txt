@@ -30,3 +30,24 @@ ex) import fast as f
     print("Let's go to", place)
 
 [패키지]
+- 파이썬 애플리케이션을 좀 더 확장하기 위해 모듈을 패키지라는 파일과 모듈 계층 구조에 구성할 수 있음
+- 패키지는 .py 파일을 포함한 하위 디렉터리이며 디렉터리 안에 디렉터리를 여러 깊이로 사용할 수 있음
+
+ex) [question.py]
+    from sources import fast, advice
+
+    print("Let's go to", fast.pick())
+    print("Should. we take out?", advice.give())
+- 파이썬은 현재 디렉터리에서 sources라는 디렉터리를 찾고 fast.py와 advice.py 파일을 찾음
+- 파이썬 3.3이전 버전은 경우 코드 하위 디렉터리에 __init__.py 파일이 필요하며 디렉터리를 패키지로 만들어줌    
+
+ㆍ모듈 탐색 경로
+- 파이썬 인터프리터가 임포트하는 위치를 보려면 표준 sys 모듈을 임포트해서 path 리스트를 살펴봄
+import sys
+for place in sys.path:
+    print(place)
+- 파이썬은 임포트할 파일을 현재 디렉터리에서 먼저 찾으며, 그 다음 표준 라이브러리에서 찾음
+- 코드 내에서 탐색 경로를 수정하거나 절대, 상대 경로 임포트를 지원함
+
+ㆍ네임스페이스 패키지
+- 다
