@@ -1,0 +1,89 @@
+11. 모듈과 패키지
+[모듈]
+- 파이썬 코드 파일이며, 개발자는 특별한 작업 없이 코드를 모듈로 사용할 수 있음
+- import문을 사용하여 다른 모듈의 코드를 참조
+- 확장자 py를 제외한 파이썬 파일의 이름을 입력
+ex) [fast.py]
+    from random import choice
+
+    places = ['KFC', 'Pizza Hut']
+
+    def pick():
+        return choice(places)
+    
+    [lunch.py]
+    import fast
+
+    place = fast.pick()
+    print("Let's go to", place)
+
+    # 두 파일을 같은 디렉터리에 저장 후 lunch.py를 실행하면 fast 모듈에 접근
+    # 모듈 fast.py의 pick()함수에서 표준 라이브러리인 random모듈의 choice함수만을 임포트
+
+- 에일리어스(alias)를 사용하여 가져올 수 있음
+ex) import fast as f
+    place = f.pick()
+    print("Let's go to", place)
+
+    from fast import pick as who_cares
+    place = who_cares()
+    print("Let's go to", place)
+
+[패키지]
+- 파이썬 애플리케이션을 좀 더 확장하기 위해 모듈을 패키지라는 파일과 모듈 계층 구조에 구성할 수 있음
+- 패키지는 .py 파일을 포함한 하위 디렉터리이며 디렉터리 안에 디렉터리를 여러 깊이로 사용할 수 있음
+
+ex) [question.py]
+    from sources import fast, advice
+
+    print("Let's go to", fast.pick())
+    print("Should. we take out?", advice.give())
+- 파이썬은 현재 디렉터리에서 sources라는 디렉터리를 찾고 fast.py와 advice.py 파일을 찾음
+- 파이썬 3.3이전 버전은 경우 코드 하위 디렉터리에 __init__.py 파일이 필요하며 디렉터리를 패키지로 만들어줌    
+
+ㆍ모듈 탐색 경로
+- 파이썬 인터프리터가 임포트하는 위치를 보려면 표준 sys 모듈을 임포트해서 path 리스트를 살펴봄
+import sys
+for place in sys.path:
+    print(place)
+- 파이썬은 임포트할 파일을 현재 디렉터리에서 먼저 찾으며, 그 다음 표준 라이브러리에서 찾음
+- 코드 내에서 탐색 경로를 수정하거나 절대, 상대 경로 임포트를 지원함
+
+[파이썬 표준 라이브러리]
+ㆍ항목세기: Counter()
+from collections import Counter
+breakfast = ['spam', 'spam', 'eggs', 'spam']
+breakfast_counter = Counter(breakfast) # Counter({'spam': 3, 'eggs': 1})
+breakfast_counter.most_common() # 요소 내림차순 반환, [('spam', 3), ('eggs', 1)]
+- +, -, &, | 연산자를 이용하여 항목을 얻을 수 있음
+
+ㆍdeque
+def palindrome(word):
+    from collections import deque
+    dq = deque(word)
+    while len(dq) > 1:
+        if dq.popleft() != dq.pop():
+            return False
+    return True
+
+def another_palindrome(word):
+    return word == word[::-1]
+
+ㆍ코드 구조 순회하기: itertools
+import itertools
+for item in itertools.chain([1, 2], ['a', 'b']): # 순회 가능한 인수 반복
+for item in itertools.cycle([1, 2]): # 무한반복
+for item in itertools.accumulate([1, 2]): # 축적 합 계산
+for item in itertools.cycle([1, 2], multiply): # 축적 곱 계산
+- 그 외 조합 및 순열을 위한 함수도 있음
+
+ㆍ깔끔하게 출력하기: pprint()
+- 함수 가독성을 위해 요소들을 정렬하여 출력 # from pprint import pprint
+
+ㆍ임의 값 얻기
+- choice(모든 시퀀스), sample(둘 이상의 값), randint(범위), randrange(시작, 끝, 스탭) random(0.0과 0.1 사이 실수)
+
+ㆍ다른 파이썬 코드 가져오기
+- PyPI: https://pypi.python.org/
+- github: https://github.com/python
+- readthedocs: https://readthedocs.org/
