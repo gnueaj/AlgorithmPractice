@@ -49,5 +49,41 @@ for place in sys.path:
 - 파이썬은 임포트할 파일을 현재 디렉터리에서 먼저 찾으며, 그 다음 표준 라이브러리에서 찾음
 - 코드 내에서 탐색 경로를 수정하거나 절대, 상대 경로 임포트를 지원함
 
-ㆍ네임스페이스 패키지
-- 다
+[파이썬 표준 라이브러리]
+ㆍ항목세기: Counter()
+from collections import Counter
+breakfast = ['spam', 'spam', 'eggs', 'spam']
+breakfast_counter = Counter(breakfast) # Counter({'spam': 3, 'eggs': 1})
+breakfast_counter.most_common() # 요소 내림차순 반환, [('spam', 3), ('eggs', 1)]
+- +, -, &, | 연산자를 이용하여 항목을 얻을 수 있음
+
+ㆍdeque
+def palindrome(word):
+    from collections import deque
+    dq = deque(word)
+    while len(dq) > 1:
+        if dq.popleft() != dq.pop():
+            return False
+    return True
+
+def another_palindrome(word):
+    return word == word[::-1]
+
+ㆍ코드 구조 순회하기: itertools
+import itertools
+for item in itertools.chain([1, 2], ['a', 'b']): # 순회 가능한 인수 반복
+for item in itertools.cycle([1, 2]): # 무한반복
+for item in itertools.accumulate([1, 2]): # 축적 합 계산
+for item in itertools.cycle([1, 2], multiply): # 축적 곱 계산
+- 그 외 조합 및 순열을 위한 함수도 있음
+
+ㆍ깔끔하게 출력하기: pprint()
+- 함수 가독성을 위해 요소들을 정렬하여 출력 # from pprint import pprint
+
+ㆍ임의 값 얻기
+- choice(모든 시퀀스), sample(둘 이상의 값), randint(범위), randrange(시작, 끝, 스탭) random(0.0과 0.1 사이 실수)
+
+ㆍ다른 파이썬 코드 가져오기
+- PyPI: https://pypi.python.org/
+- github: https://github.com/python
+- readthedocs: https://readthedocs.org/
