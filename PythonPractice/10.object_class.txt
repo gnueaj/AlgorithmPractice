@@ -20,7 +20,7 @@ ex)class Cat();
 ㆍ객체 초기화
 Class Cat():
     def __init__(self, name): # 클래스 정의에서 개별 객체를 초기화하는 특수 메서드
-        self.name = name    # __init__을 정의할 때 첫 번째 매개변수 이름은 개별 객체 자신을 참조하는 self이어야 함 
+        self.name = name      # __init__을 정의할 때 첫 번째 매개변수 이름은 개별 객체 자신을 참조하는 self이어야 함 
 
 furball = Cat('Grumpy') # 인수를 name에 전달
 - 모든 클래스 정의에서 __init__() 메서드를 가질 필요는 없음
@@ -72,12 +72,60 @@ class EmailPerson(Person):
  (5) 부모의 부모 클래스
 - 특수 메서드 mro()는 해당 클래스 객체에 대한 메서드 또는 속성을 찾는데 필요한 클래스의 리스트를 반환함
 
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
+ㆍ속성 접근
+- 어떤 객체 지향 언어에서는 외부로부터 바로 접근할 수 없는 private 객체 속성을 지원함
+- 파이썬에서는 private 속성이 없지만 값을 읽고 쓰기 위해 getter/setter메서드와 프로퍼티를 사용함
+ex1)
+class Duck():
+    def __init__(self, input_name):
+        self.hidden_name = input_name
+    def get_name(self):             # getter
+        print('inside the getter')
+        return self.hidden_name
+    def set_name(self, input_name): # setter
+        print('inside the setter')
+        self.hidden_name = input_name
+    name = property(get_name, set_name) # 프로퍼티 사용, name을 사용하여 hidden_name을 가져오거나 설정할 수 있음
+
+ex2)
+class Duck():
+    def __init__(self, input_name):
+        self.hidden_name = input_name
+    @property #getter 메서드 앞에 @property 데커레이터 사용
+    def name(self):             # getter
+        print('inside the getter')
+        return self.hidden_name
+    @name.setter #setter 메서드 앞에 @name.setter 데커레이터 사용
+    def name(self, input_name): # setter
+        print('inside the setter')
+        self.hidden_name = input_name
+
+>>> don = Duck('Donald')
+>>> don.name
+inside the getter 'Donald'
+>>> don.name = 'Donna'
+inside the setter
+>>> don.name
+inside the getter 'Donna'
+
+- 위 예제에서는 hidden_name 참조를 위해 name 프로퍼티를 참조함
+- 단, 어떤 사람이 hidden_name 속성을 알고 있다면 이 속성을 바로 읽고 쓸 수 있음
+
+ㆍ읽기 전용 속성
+class Circle():
+    def __init__(self, radius):
+        self.radius = radius
+    @property
+    def diameter(self):
+        return 2 * self.radius
+- radius속성은 바꿀 수 있으며, diameter 프로퍼티는 현재 radius값으로부터 계산되는 읽기 전용 속성임
+
+ㆍ프라이버를 위한 네임 맹글링
+- 파이썬은 클래스 정의 외부에서 볼 수 없도록 하는 속성에 대한 네이밍 컨벤션이 두 언더바(__)이 있음
+- fowl.__name과 같이 접근할 수 없으며, fowl._Duck__name과 같이 접근해야 함
+
+ㆍ클래스에 속성을 할당할 수 있음
+>>> class Fruit:
+        color = 'red'
+- 자식 객체의 속성을 변경해도 클래스 속성에 영향을 미치지 않음
+- 나중에 클래스 속성을 변경해도 기존 자식 객체에는 영향을 미치지 않음
