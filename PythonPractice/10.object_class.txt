@@ -91,11 +91,11 @@ ex2)
 class Duck():
     def __init__(self, input_name):
         self.hidden_name = input_name
-    @property #getter 메서드 앞에 @property 데커레이터 사용
+    @property       #getter 메서드 앞에 @property 데커레이터 사용
     def name(self):             # getter
         print('inside the getter')
         return self.hidden_name
-    @name.setter #setter 메서드 앞에 @name.setter 데커레이터 사용
+    @name.setter    #setter 메서드 앞에 @name.setter 데커레이터 사용
     def name(self, input_name): # setter
         print('inside the setter')
         self.hidden_name = input_name

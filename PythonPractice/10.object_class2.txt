@@ -1,5 +1,61 @@
-ㆍ
-ㆍ
+ㆍ메서드 타입
+[인스턴트 메서드]
+- 메서드 앞에 데커레이터가 없으며, 첫 번째 인수는 객체 자신을 참조하는 self임
+- 일반적인 클래스를 생성할 때의 메서드 타입이며, 파이썬은 이 메서드를 호출할 때 객체를 전달함
+
+[클래스 메서드]
+- 클래스 전체에 영향을 미치며, 클래스에 대한 어떤 변화는 모든 객체에 영향을 미침
+- 클래스 정의에서 함수에 @classmethod 데커레이터가 있다면 클래스 메서드임
+- 이 메서드의 첫 번째 매개변수는 클래스 자신이며, 이 클래스의 매개변수로 보통 cls를 사용함
+>>> class A():
+    count = 0
+    def __init__(self):
+        A.count += 1
+    def exclaim(self):
+        print("I'm an A!")
+    @classmethod
+    def kids(cls):
+        print("A has", cls.count, "little objects.")
+
+>>> easy_a = A()
+>>> breezy_a = A()
+>>> wheezy_a = A()
+>>> A.kids()
+- self.count(객체 인스턴스 속성)를 참조하지 않고 A.count(클래스 속성, cls.count)를 참조함
+
+[정적 메서드]
+- 정적 메서드는 클래스나 객체에 영향을 미치지 못하며, 단지 편의를 위해 존재함
+- @staticmethod 데커레이터가 있으며, 첫 번쨰 매개변수로 self나 cls가 없음
+class CoyoteWeapon():
+    @staticmethod
+    def commercial():
+        print("This CoyoteWeapon has been brought to you by Acme")
+CoyoteWeapon.commercial()
+- 이 메서드를 접근하기 위해 CoyoteWeapon 클래스에서 객체를 생성할 필요는 없음
+
+ㆍ덕 타이핑
+- 파이썬은 다형성을 느슨하게 구현했으며, 이는 클래스에 상관없이 같은 동작을 다른 객체에 적용할 수 있다는 것을 의미함
+class Quote():
+    def __init__(self, person, words):
+        self.person = person
+        self.words = words
+    def who(self):
+        return self.person
+    def says(self):
+        return self.words + '.'
+
+class QuestionQuote(Quote)
+    def says(self):
+        return self.words + '?'
+    
+class ExclamationQuote(Quote):
+    def says(self):
+        return self.words + '!'
+
+- QuestionQuote 와 ExclamationQuote 클래스에서 초기화 함수를 쓰지 않았으므로, 
+  부모 클래스 Quote의 __init__() 메서드를 호출해서 인스턴스 변수 person과 words를 저장함
+- 그러므로 두 자식 클래스에서 생성된 객체의 self.words에 접근할 수 있음
+- says() 메서드는 세 클래스에 대해 서로 다른 동작을 제공하며, 이는 객체 지향 언어에서 전통적인 다형성의 특징임
 ㆍ
 ㆍ
 ㆍ
