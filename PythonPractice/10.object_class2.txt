@@ -52,10 +52,84 @@ class ExclamationQuote(Quote):
     def says(self):
         return self.words + '!'
 
+>>> hunted2 = ExclamationQuote('Daffy Duck', "It's rabbit season")
+print(hunted2.who(), 'says:', hunter.says())
+Daffy Duck says: It's rabbit season!
+
 - QuestionQuote 와 ExclamationQuote 클래스에서 초기화 함수를 쓰지 않았으므로, 
   부모 클래스 Quote의 __init__() 메서드를 호출해서 인스턴스 변수 person과 words를 저장함
 - 그러므로 두 자식 클래스에서 생성된 객체의 self.words에 접근할 수 있음
 - says() 메서드는 세 클래스에 대해 서로 다른 동작을 제공하며, 이는 객체 지향 언어에서 전통적인 다형성의 특징임
-ㆍ
-ㆍ
-ㆍ
+
+ㆍ매직 메서드
+- 파이썬의 특수 메서드 이름
+__eq__(self, other) : self == other
+__ne__(self, other) : self != other
+__lt__(self, other) : self < other
+__gt__(self, other) : self > other
+__le__(self, other) : self <= other
+__ge__(self, other) : self >= other
+
+__add__(self, other) : self + other
+__sub__(self, other) : self - other
+__mult__(self, other) : self * other
+__floordiv__(self, other) : self // other
+__truediv__(self, other) : self / other
+__mod__(self, other) : self % other
+__pow__(self, other) : self ** other
+
+__str__(self) : str(self)
+__repr__(self) : repr(self)
+__len__(self) : len(self)
+
+- 기타 매직 메서드를 조금 더 알고 싶다면 파이썬 문서(http://bit.ly/pydocs-smn) 참조
+
+ㆍ애그리게이션과 컴퍼지션
+- 자식 클래스가 부모 클래스처럼 행동하고 싶을 때, 상속은 좋은 기술이다(자식 is-a 부모).
+- 컴퍼지션(composition) 혹은 애그리게이션(aggregation) (X has-a Y)의 사용이 더 적절한 경우가 있다.
+
+class Bill():
+    def __init__(self, description):
+        self.description = description
+
+class Tail():
+    def __init__(self, description):
+        self.description = description
+
+class Duck():
+    def __init__(self, bill, tail):
+        self.bill = bill
+        self.tail = tail
+
+a_tail = Tail('long')
+a_bill = Bill('wide orange')
+duck = Duck(a_bill, a_tail)
+
+ㆍ네임드 튜플
+- 튜플의 서브클래스이며, 이름(.name)과 offset으로 값에 접근할 수 있음
+from collections import namedtuple
+Duck = namedtuple('Duck', 'bill tail')
+duck = Duck('wide orange', 'long')
+
+- 딕셔너리에서 네임드 튜플을 만들 수 있음
+parts = {'bill': 'wide orange', 'tail': 'long'}
+duck2 = Duck(**parts) # Duck(bill = 'wide orange', tail = 'long')
+- 네임드 튜플은 불변이며, 딕셔너리는 네임드 튜플이 아님 (대괄호 대신 온점으로 속성 접근)
+- 네임드 튜플을 딕셔너리의 키처럼 쓸 수 있음
+
+ㆍ데이터 클래스
+- 많은 개발자는 메서드가 아니라 데이터를 저장하기 위해 객체를 생성하는 것을 선호함
+- @dataclass 데커레이터와 name: type 형식의 변수 어노테이션을 사용하여 속성을 정의함
+from dataclasses import dataclass
+@dataclass
+class AnimalClass:
+    name: str
+    habitat: str
+    teeth: int = 0
+    
+snowman = AnimalClass('yeti', 'Himalayas', 46)
+- 일반 객체와 같이 객체 속성을 참조할 수 있음
+
+ㆍattrs
+- 모두를 위한 파이썬 라이브러리 (https://oreil.ly/QbbI1) 에서 클래스와 네임드 튜플, 데이터 클래스를 비교
+- 적은 타이핑과 데이터 유효성 검사 등 여러가지 이유로 외부 패키지 attrs(https://oreil.ly/Rdwlx)를 권장하기도 함
