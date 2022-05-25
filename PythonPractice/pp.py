@@ -5,4 +5,4 @@ class AnimalClass:
     habitat: str
     teeth: int = 0
     
-snowman = AnimalClass('yeti', 'Himalayas', 46)
+print("hello")

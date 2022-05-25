@@ -8,3 +8,5 @@
 블럭 주석 처리: Alt + Shift + A
 
 한 줄 삭제: Ctrl + Shift + k
+
+행 맨 앞/끝 이동: fn + Home, End
