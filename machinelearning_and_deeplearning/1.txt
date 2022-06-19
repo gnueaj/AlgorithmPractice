@@ -37,8 +37,10 @@ print(kn.predict([[30,600]])) # [30, 600]을 가진 데이터가 도미인지 �
 - 데이터가 아주 많은 경우 사용하기 어려움
 - 실제로 k-Nearest Neighbors 알고리즘은 무언가 훈련되는게 없는 셈이며, 가장 가까운 몇 개의 데이터를 활용함
 - 기본값은 5이며, n_neighbors 매개변수로 바꿀 수 있음 
-kn = KNeighborsClassifier(n_neighbors=49)
-
+kn49 = KNeighborsClassifier(n_neighbors=49)
+kn49.fit(fish_data, fish_target)
+print(kn49.predict([[1,1]])) # 49개 중 도미가 다수를 차지하므로 무조건 도미로 예측
+print(kn49.score(fish_data, fish_target)) # 35/49
 
 
 ㆍ

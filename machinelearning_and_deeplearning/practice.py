@@ -11,6 +11,13 @@ bream_weight = [242.0, 290.0, 340.0, 363.0, 430.0, 450.0, 500.0, 390.0, 450.0, 5
 smelt_length = [9.8, 10.5, 10.6, 11.0, 11.2, 11.3, 11.8, 11.8, 12.0, 12.2, 12.4, 13.0, 14.3, 15.0]
 smelt_weight = [6.7, 7.5, 7.0, 9.7, 9.8, 8.7, 10.0, 9.9, 9.8, 12.2, 13.4, 12.2, 19.7, 19.9]
 
+# plt.scatter(bream_length, bream_weight)
+# plt.scatter(smelt_length, smelt_weight)
+# plt.scatter(30, 600, marker = '^')
+# plt.xlabel('length')
+# plt.ylabel('wetight')
+# plt.show()
+
 length = bream_length + smelt_length
 weight = bream_weight + smelt_weight 
 
@@ -22,8 +29,8 @@ kn.fit(fish_data, fish_target) # fit()을 사용한 도미를 찾기 위한 기�
 kn.score(fish_data, fish_target) # 모델 평가를 위한 메서드, 0 ~ 1 반환
 kn.predict([[30,600]])
 
-kn49 = KNeighborsClassifier(n_neighbors=49)
-kn49.fit(fish_data, fish_target)
-print(kn49.predict([[1,1]])) # 49개 중 도미가 다수를 차지하므로 무조건 도미로 예측
-
-print(kn49.score(fish_data, fish_target)) # 35/49
+for i in range(1, 50):
+    kn = KNeighborsClassifier(n_neighbors=i)
+    kn.fit(fish_data, fish_target)
+   # print(kn.predict([[1,1]])) # 49개 중 도미가 다수를 차지하므로 무조건 도미로 예측
+    print(i, '->', kn.score(fish_data, fish_target)) # 35/49
