@@ -68,6 +68,16 @@ ex) def document_it(func):
     Result: 8
     8
 - 데커레이터는 여러개를 가질 수 있으며, 함수에서 가장 가까운 데커레이터부터 실행됨
+- dataclass모듈은 데이터를 담아두기 위한 클래스를 매우 적은 양의 코드로 작성하게 해줌
+ ex) __init__(), __repr__(), __eq__()와 같은 모듈을 자동으로 생성
+from dataclass import dataclass
+
+@dataclass
+class user:
+    id: int
+    name: str
+    admin: bool = False
+
 
 ㆍ네임스페이스와 스코프
 - 네임스페이스는 특정 이름이 유일하고, 다른 네임스페이스에서의 같은 이름과 관계가 없는 것을 말함

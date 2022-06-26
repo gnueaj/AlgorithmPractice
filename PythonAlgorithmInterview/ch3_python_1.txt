@@ -1,0 +1,127 @@
+ㆍ네이밍 컨벤션
+- 자바와 달리 각 단어를 밑줄(_)로 구분하여 표기
+- 파이썬 개선 제안서(PEP, Python Enhancement Proposals) 프로세스 및 철학에 따라 스네이크 코딩 지향
+# 카멜 케이스
+camelCase: int = 1
+# 스네이크 케이스
+snake_case: int = 1
+
+ㆍ타입 힌트
+- 파이썬은 동적 타이핑 언어임에도 타입을 지정할 수 있는 타입 힌트가 PEP 484(파이썬3.5~) 문서에 추가됨
+- 다음과 같은 형태로 타입을 선언할 수 있음
+a: str = "1"
+b: int = 1
+def fn(a: int) -> bool:
+- mypy를 설치하면 타입 힌트가 잘못 지정된 코드를 보여줌
+
+ㆍ리스트 컴프리헨션
+- 파이썬은 map, filter와 같은 함수형 기능과 람다 표현식을 제공함
+- 리스트 컴프리헨션이란 기존 리스트를 기반으로 새로운 리스트를 만들어 내는 구문이며 가독성이 높음
+>>> [n * 2 for n in range(1, 10 + 1) if n % 2 == 1]
+[2, 6, 10, 14, 18]
+- 딕셔너리 등에도 가능
+a = {key: value for key, valute in original.items()}
+
+ㆍ제너레이터
+- 루프의 반복 동작을 제어할 수 있는 루틴 형태
+- 여러 개의 데이터를 미리 만들어 놓지 않고 필요할 때마다 즉석해서 하나씩 만들어낼 수 있는 객체
+- yield는 제너레이터가 실행 중이던 값을 내보다는다는 의미로, 값을 리턴한 다음 함수는 종료되지 않음
+- 함수의 리턴 값은 제너레이터가 됨
+def get_natural_number():
+     n = 0
+     while True:
+          n += 1
+          yield n
+>>> get_natural_number()
+<generator object get_natural_number at 0x0000016FBCC07760>
+
+- 다음 값을 생성하려면 next()로 추출하면 됨
+g = get_natural_number()
+for _ in range(0, 100):
+    print(next(g))
+
+- 여러 타입의 값을 하나의 함수에서 생성하는 것도 가능
+def generator():
+    yield 1
+    yield 'string'
+    yield True
+
+ㆍrange
+- 제너레이터의 방식을 활용하는 대표적인 함수
+- range 클래스를 리턴하며, for문에서는 내부적으로 제너레이터의 next()를 호출하듯 다음 숫자를 생성
+- 생성 조건만 보관해두고 필요할 때 생성해서 꺼내 쓸 수 있어 메모리를 효율적으로 사용할 수 있음
+a = [n for n in range(1000000)]
+b = range(1000000)
+>>> len(a)
+1000000
+>>> len(b)
+1000000
+>>> len(a) == len(b)
+True
+>>> sys.getsizeof(a)
+8697464
+>>> sys.getsizeof(b)
+48
+- 인덱스로 접근 시 바로 생성하도록 구현되어 있기 때문에 리스트와 거의 동일한 느낌으로 사용가능
+>>> b[999]
+999
+
+ㆍenumerate
+- list, set, tuple 등을 인덱스를 포함한 enumerate 객체로 리턴
+a = [4,8,3,1]
+print(list(enumerate(a)))
+-> [(0, 4), (1, 8), (2, 3), (3, 1)]
+- 리스트와 인덱스 값을 함께 관리하기 유용함
+for i, v in enumerate(a):
+    print(i, v)
+
+ㆍ나눗셈 연산자
+>>> 5 / 3
+1.6666
+>>> type(5 / 3)
+<class 'float'>
+>>> 5 // 3
+1
+>>> type(5 // 3)
+<class 'int'>
+>>> 5 % 3
+2
+>>> divmod(5, 3)
+(1, 2)
+
+ㆍprint
+>> print('a1', 'b2')
+a1 b2
+>>> print('a1', 'b2', sep=',') # 구분자 지정
+a1,b2
+- print 함수는 항상 줄바꿈을 하므로 end 파라미터를 공백으로 하여 줄바꿈을 하지 않도록 할 수 있음
+print('a', end = ' ')
+print('b')
+- join함수는 매개변수로 들어온 리스트에 있는 요소를 합쳐 하나의 문자열로 바꿈
+a = ['a', 'b']
+print(' '.join(a)) # a b
+
+- 이전 스타일 (python 2.6+)
+idx = 1
+fruit = "Apple"
+print('{0}: {1}'.format(idx + 1, fruit))
+print('{}: {}'.format(idx + 1, fruit))
+
+- f-string 방법 (python 3.6+) 
+print(f'{idx + 1}: {fruit}') 
+
+ㆍpass
+- 널 연산처럼 아무것도 하지 않는 기능으로, 인덴트 오류 같은 불필요한 오류를 방지할 수 있음
+- 먼저 목업 인터페이스부터 구현한 다음에 추후 구현을 진행할 수 있게 함
+class MyClass(object):
+    def method_a(self):
+        pass
+
+    def method_b(self):
+        print("Method B")
+
+ㆍlocals
+- 로컬 심볼 테이블 딕셔너리를 가져오는 메소드이며, 로컬에 선언된 모든 변수를 조회할 수 있음
+- 클래스의 특정 메소드 내부에서나 함수 내부의 로컬 정보를 조회하여 잘못 선언한 부분을 확인
+import pprint
+pprint.pprint(locals())

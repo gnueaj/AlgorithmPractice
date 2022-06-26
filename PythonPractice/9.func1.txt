@@ -119,3 +119,17 @@ ex) def knights2(saying):
     >>> b()
     "We are the knights who say: 'Hasenpfeffer'"
     # 이들을 호출하면 knights2()함수에 전달되어 사용된 saying을 기억함
+
+ㆍ함수 어노테이션
+3.5 버전부터 타입 어노테이션을 지원 
+정적 언어에서와 같은 적극적인 타입 체크가 아니라 타입 어노테이션(type annotation) 즉 힌트를 알려주는 정도
+
+num: int = 1
+변수명 바로 뒤에 : int와 같이 사용하여 num 변수가 int형임을 명시
+
+def add(a: int, b: int) -> int: 
+    return a+b
+함수의 매개변수에도 같은 규칙을 적용하여 매개변수의 타입을 명시 
+함수의 반환값도 -> 타입처럼 사용하여 반환값의 타입을 명시
+
+정수는 int, 문자열은 str, 리스트는 list, 튜플은 tuple, 딕셔너리는 dict, 집합은 set, 불은 bool을 사용
