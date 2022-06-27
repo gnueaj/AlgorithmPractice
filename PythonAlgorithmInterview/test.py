@@ -1,6 +1,7 @@
-import pprint
+from re import A
+
+
 
 a = 10
-b = 's'
-
-pprint.pprint(locals())
+b = a
+print(id(10), id(a), id(b))

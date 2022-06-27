@@ -1,3 +1,20 @@
+ㆍ타입 힌트
+- 파이썬은 동적 타이핑 언어임에도 타입을 지정할 수 있는 타입 힌트가 PEP 484(파이썬3.5~) 문서에 추가됨
+- 다음과 같은 형태로 타입을 선언할 수 있음
+a: str = "1"
+b: int = 1
+def fn(a: int) -> bool:
+- mypy를 설치하면 타입 힌트가 잘못 지정된 코드를 보여줌
+
+
+ㆍ네이밍 컨벤션
+- 자바와 달리 각 단어를 밑줄(_)로 구분하여 표기
+- 파이썬 개선 제안서(PEP, Python Enhancement Proposals) 프로세스 및 철학에 따라 스네이크 코딩 지향
+# 카멜 케이스
+camelCase: int = 1
+# 스네이크 케이스
+snake_case: int = 1
+
 ㆍ코딩 스타일
 - https://google.github.io/styleguide/pyguide.html (구글 파이썬 스타일 가이드)
 - https://peps.python.org/pep-0008/ (PEP8)
@@ -49,11 +66,3 @@ ex) if not users: # if len(users) == 0:
         ...
     if foo: # if foo != []:
         ...
-    
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
-ㆍ
