@@ -1,0 +1,35 @@
+ㆍ자료형 명시
+str: Deque = collections.deque()
+
+ㆍ슬라이싱
+- 내부적으로 매우 빠르게 동작하므로 문자열을 조작할 때는 슬라이싱을 우선으로 사용
+a = s[:] # a = b와 같은 형태로 할당하면 a변수가 b변수를 참조하는 형태가 되므로 값 복사를 위해 [:]를 사용
+s == s[::-1] # 뒤집기
+s == re.sub(pattern, new_text, text) # text에서 pattern에 맞는 부분을 new_text로 대체
+s = re.sub('[^a-z0-9]', '', s)
+
+ㆍ정규 표현식
+https://wikidocs.net/4308
+
+[주민등록번호를 포함하고 있는 텍스트가 있다. 이 텍스트에 포함된 주민등록번호의 뒷자리를 *로 변경해 보자.]
+
+- 일반 코드
+data = """
+park 800905-1049118
+kim 700905-1059119
+"""
+result = []
+for line in data.split("\n"): # 한 줄씩 나누기
+     word_result = []
+     for word in line.split(" "): # 한 단어씩 나누기
+          if len(word) == 14 and word[:6].isdigit() and word[7:].isdigit(): # 주민등록번호 형식인지 검사
+               word = word[:6] + "-" + "*******" # 뒷자리를 *로 변환
+          word_result.append(word) # 나눈 단어 word_result에 추가
+     result.append(" ".join(word_result)) # 리스트 결합 후 result에 추가 
+print("\n".join(result)) # result 결합
+
+- 정규 표현식 이용
+
+ㆍ
+ㆍ
+ㆍ
