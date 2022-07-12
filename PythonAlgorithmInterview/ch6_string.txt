@@ -29,7 +29,61 @@ for line in data.split("\n"): # 한 줄씩 나누기
 print("\n".join(result)) # result 결합
 
 - 정규 표현식 이용
+import re
 
-ㆍ
-ㆍ
-ㆍ
+data = """
+park 800905-1049118
+kim 700905-1059119
+"""
+
+pat = re.compile("(\d{6})[-]\d{7}")
+print(pat.sub("\g<1>-*******", data))
+
+ㆍ메타 문자
+1) 문자 클래스 [] 
+- "[] 사이의 문자들과 매치" 라는 의미를 가짐
+ex) 
+[abc] : a, b, c 중 한 개의 문자와 매치
+[a-zA-z]: 알파벳 모두
+[^0-9]: 숫자가 아닌 문자
+\d: 숫자 ([0-9]와 동일)
+\D: 숫자가 아닌 것([^0-9]와 동일)
+\s: whitespace 문자([ \t\n\r\f\v]와 동일)
+\s: whitespace 문자가 아닌 것([^ \t\n\r\f\v]와 동일)
+\w: 문자+숫자 ([a-zA-Z0-9_]와 동일)
+\W: 문자+숫자가 아닌것([^a-zA-Z0-9_]와 동일)
+
+2) Dot(.)
+- 줄바꿈 문자(\n)를 제외한 모든 문자와 매치됨(re.DOTALL 옵션 적용시 \n도 매치)
+ex) a.b # a + 모든문자 + b
+    a[.]b # a + Dot(.)문자 + b
+
+3) 반복(*), (+), ({m,n}, ?)
+ex) ca*t # c와 t사이에 a가 0번 이상 반복
+    ca+t # c와 t사이에 a가 1번 이상 반복
+    ca{m,n}t # c와 t사이에 a가 m ~ n번 반복, {m,}은 m이상, {,n은} n이하, {m}은 m을 의미
+    ca?t # c와 t사이에 a가 0번 또는 1번 나타남
+
+ㆍre 모듈
+import re # regular expression의 약어
+p = re.compile('ab*') # 정규표현식을 컴파일하여 p 객체를 돌려줌
+
+match(): 문자열의 처음부터 정규식과 매치되는지 조사
+search(): 문자열 전체를 검색하여 정규식과 매치되는지 조사
+findall(): 정규식과 매치되는 모든 문자열(substring)을 리스트로 돌려줌
+finditer(): 정규식과 매치되는 모든 문자열(substring)을 반복 가능한 객체로 돌려줌
+- match, search는 정규식과 매치될 때는 match 객체를 돌려주고 아닐 때는 None을 돌려줌
+
+1) match
+-
+
+2) search
+-
+
+3) findall
+-
+
+4) finditer
+-
+
+
