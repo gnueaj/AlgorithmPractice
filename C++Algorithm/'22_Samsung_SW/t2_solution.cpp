@@ -1,7 +1,6 @@
 #include <map>
 #include <algorithm>
 #include <utility>
-#include <vector>
 #include <cstring>
 #include <map>
 #include <set>
@@ -27,10 +26,8 @@ int genderToInt(char mGender[7]){
 
 void init() {
     studentDB.clear();
-    for(int i = 0; i < 4; i++)
-    {
-        for(int j = 0; j < 2; j++)
-        {
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 2; j++){
             mScoreDB[i][j].clear();
         }
     }
@@ -41,14 +38,13 @@ int add(int mId, int mGrade, char mGenderString[7], int mScore) {
     int mGender = genderToInt(mGenderString);
 
     studentDB.insert({mId, student(mGrade, mGender, mScore)});
-    if(mScoreDB[mGrade][mGender].find(mScore) == mScoreDB[mGrade][mGender].end())
-    {
-        set<int> mIdSet; mIdSet.insert(mId);
+    if(mScoreDB[mGrade][mGender].find(mScore) == mScoreDB[mGrade][mGender].end()){
+        set<int> mIdSet; 
+        mIdSet.insert(mId);
+        
         mScoreDB[mGrade][mGender].insert({mScore, mIdSet});
         /* mScore점수를 가진 학생이 존재하지 않을 경우 */
-    }
-    else
-    {
+    }else{
         mScoreDB[mGrade][mGender].find(mScore)->second.insert(mId);
         /* mScore점수를 가진 학생이 이미 존재할 경우 */
     }
@@ -66,12 +62,17 @@ int add(int mId, int mGrade, char mGenderString[7], int mScore) {
 int remove(int mId) {
     if(studentDB.find(mId) == studentDB.end()) // mId학생이 없는 경우
         return 0;
-    else //mId학생이 있는 경우
-    {
+    else{  //mId학생이 있는 경우
         student st = studentDB.find(mId)->second;
         //mId 학생 정보 저장
         studentDB.erase(mId);
-        mScoreDB[st.mGrade][st.mGender].erase(st.mScore);
+
+        if(mScoreDB[st.mGrade][st.mGender].find(st.mScore)->second.size() == 1){ //mScore인 학생이 한 명일 때
+            mScoreDB[st.mGrade][st.mGender].erase(st.mScore);
+        }else{
+            mScoreDB[st.mGrade][st.mGender].find(st.mScore)->second.erase(mId); //mScore인 학생이 여러 명일 때
+        }
+        
         //삭제
         if(mScoreDB[st.mGrade][st.mGender].empty()) //학년과 성별이 동일한 학생이 없는 경우
             return 0;
@@ -89,18 +90,15 @@ int query(int mGradeCnt, int mGrade[], int mGenderCnt, char mGenderString[][7], 
     int lowestScore = 300001;
     int returnId = 1000000001;
 
-    for(int i = 0; i < mGradeCnt; i++)
-    {
-        for(int j = 0; j < mGenderCnt; j++)
-        {
+    for(int i = 0; i < mGradeCnt; i++){
+        for(int j = 0; j < mGenderCnt; j++){
             if(!mScoreDB[mGrade[i]][mGender[j]].empty() && 
                 mScoreDB[mGrade[i]][mGender[j]].lower_bound(mScore) != mScoreDB[mGrade[i]][mGender[j]].end())
             {// 조건에 맞는 ID가 존재
                 int score = mScoreDB[mGrade[i]][mGender[j]].lower_bound(mScore)->first;
-                if(lowestScore == score)
+                if(lowestScore == score){// 조건에 맞는 ID의 가장 낮은 점수가 이전까지의 가장 낮은 점수와 같을 때
                     returnId = min(returnId, *mScoreDB[mGrade[i]][mGender[j]].find(score)->second.begin());
-                else if(lowestScore >= score)
-                {
+                }else if(lowestScore >= score){
                     lowestScore = score;
                     returnId = *mScoreDB[mGrade[i]][mGender[j]].find(score)->second.begin();
                 }
