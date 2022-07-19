@@ -1,0 +1,30 @@
+ㆍ파일 입출력
+freopen("sample_input.txt", "r", stdin)
+
+ㆍ비트 연산
+(1) 1 << n
+- 2^n의 값을 가짐
+- Power set (모든 부분 집합): 각 원소가 포함되거나 포함되지 않는 경우의 수를 계산
+
+(2) i & (1 << j)
+- i의 j번째 비트가 1인지 아닌지 계산
+void printBits(char n)
+{
+    for (int i = 7; i >= 0; --i)
+    {
+        if (n & (i << i)) printf("1");
+        else printf("0");
+    }
+}
+
+ㆍ
+
+ㆍ
+
+ㆍ
+
+ㆍ
+
+ㆍ
+ㆍ
+ㆍ
