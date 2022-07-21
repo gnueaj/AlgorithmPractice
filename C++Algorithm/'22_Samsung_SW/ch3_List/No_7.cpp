@@ -7,10 +7,13 @@ list<int> lst;
 
 int main(int argc, char** argv)
 {
+    //setbuf(stdout, NULL);
+    freopen("sample_input.txt", "r", stdin);
 	int test_case;
-	int T = 10;
-	//setbuf(stdout, NULL);
-	freopen("input.txt", "r", stdin);
+	int T;
+    cin >> T;
+	
+	
 
 	/*
 	   여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
@@ -18,8 +21,8 @@ int main(int argc, char** argv)
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
         lst.clear();
-        int len;
-        cin >> len;
+        int len, num, L;
+        cin >> len >> num >> L;
         while(len--)
         {
             int data;
@@ -27,55 +30,40 @@ int main(int argc, char** argv)
             lst.push_back(data);
         }
 
-        int num;
-        cin >> num;
         while(num--)
         {
             char cmd;
             cin >> cmd;
-            int x, y, data, idx;
+            int x, data, idx;
             list<int>::iterator iter = lst.begin();
             switch(cmd)
             {
                 case 'I':
-                    cin >> x >> y;
+                    cin >> x >> data;
                     idx = x;
                     while(idx--) iter++;
-                    for(int i = 0; i < y; i++)
-                    {
-                        cin >> data;
-                        lst.insert(iter, data);
-                    }
+                    lst.insert(iter, data);
                 break;
 
                 case 'D':
-                    cin >> x >> y;
+                    cin >> x;
                     while(x--) iter++;
-                    while(y--)
-                    {
-                        lst.erase(iter++);
-                    }
+                    lst.erase(iter++);
                 break;
 
-                case 'A':
-                    cin >> y;
-                    while(y--)
-                    {
-                        cin >> data;
-                        lst.push_back(data);
-                    }
+                case 'C':
+                    cin >> x >> data;
+                    while(x--) iter++;
+                    *iter = data;
                 break;
             }
         }
         cout << "#" << test_case << ' ';
-        int n = 0;
-        for(auto it = lst.begin(); n < 10; it++, n++)
-        {
-            cout << *it << ' ';
-        }
+        list<int>::iterator itr = lst.begin();
+        while(L-- && itr != lst.end()) itr++;
+        if(itr != lst.end()) cout << *itr;
+        else cout << -1;
         cout << endl;
-        //cout << "efe";
-        lst.clear();
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }

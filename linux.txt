@@ -1,0 +1,8 @@
+ㆍ다중 파일 빌드
+$ gcc -o justify justify.c line.c word.c
+또는
+$ gcc -c foo.c
+$ gcc -c fo2.c
+$ gcc -c main.c
+$ gcc -o main main.o foo.o fo2.o
+./main

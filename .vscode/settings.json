@@ -42,6 +42,7 @@
         "xutility": "cpp",
         "functional": "cpp",
         "set": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "list": "cpp"
     }
 }
