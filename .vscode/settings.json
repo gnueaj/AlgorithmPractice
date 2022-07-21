@@ -41,6 +41,7 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "functional": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ctime": "cpp"
     }
 }

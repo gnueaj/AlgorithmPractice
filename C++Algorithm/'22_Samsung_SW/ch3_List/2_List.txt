@@ -1,0 +1,79 @@
+ㆍSingly Linked List
+- 동적 할당을 일일이 하게 되면 성능이 떨어지고 실수할 여지가 많아짐
+- 메모리 풀은 사용될 노드를 한 번에 정적 할당한 후 하나씩 꺼내 쓰는 방식임
+struct Node{
+    int data;
+    Node* next;
+};
+
+//1. 동적 할당 방식
+Node* new_node(int data){
+    Node* node = new Node;
+
+    node->data = data;
+    node->next = nullptr;
+
+    return node;
+}
+
+//2. 정적 할당(메모리 풀) 방식
+constexpr size_t MAX_NODE = 10000;
+
+int node_count = 0;
+Node node_pool[MAX_NODE];
+
+Node* new_node(int data){
+    node_pool[node_count].data = data;
+    node_pool[node_count].next = nullptr;
+
+    return &node_pool[node_count++];
+}
+- 동적 할당을 하는 오머헤드가 없어짐
+- 사용이 끝날 때마다 메모리를 해제할 필요가 없음
+- 모든 노드가 메모리 상에서 뭉쳐 있기 때문에 캐시 효율이 높아짐
+- 실제로 프로그램을 개발할 때는 동적 할당을 써야 하지만 알고리즘 문제를 풀 때는 정적 할당을 쓰는 것이 수행 시간에 있어 유리
+
+- 초기화
+Node head; // HEAD -> data1 -> data2 -> ... -> NULL
+
+void init(){
+    head.next = nullptr; // 더미 노드 head를 만들어 초기화
+}
+
+- 삽입
+void insert(int x){
+    Node* node = new_node(x);
+    
+    node->next = head->next;
+    head.next = node;
+}
+
+- 삭제
+void remove(int x){
+    Node* prev_ptr = &head;
+    while(prev_ptr->next != nullptr && prev_ptr->next->data != x){
+        prev_ptr = prev_ptr->next;
+    }
+
+    if(prev_ptr->next != nullptr){
+        prev_ptr->next = prev_ptr->next->next;
+    }
+}
+
+- 탐색
+bool find(int x){
+    Node* ptr = head.next;
+    while(ptr != nullptr && ptr->data != x){
+        ptr = ptr->next;
+    }
+
+    return ptr != nullptr;
+}
+
+
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
+ㆍ
