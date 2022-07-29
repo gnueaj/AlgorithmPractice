@@ -44,5 +44,6 @@
         "set": "cpp",
         "ctime": "cpp",
         "list": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

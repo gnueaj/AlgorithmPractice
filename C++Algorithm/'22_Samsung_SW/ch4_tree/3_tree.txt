@@ -1,0 +1,294 @@
+ㆍTree
+- 사이클이 없는 연결 그래프
+- 각 노드가 하나의 부모 노드와 간선으로 연결되어 있는 자료구조(루트 노드 제외)
+- 트리의 크기는 노드의 개수와 같음
+
+ㆍBinary Search Tree
+- 원소의 중복을 허용하지 않으며 왼쪽 서브트리는 자기보다 작은 값을, 오른쪽은 큰 값을 저장하는 트리
+- C++ std::set에는 Binary Search Tree 중 하나인 Red Black Tree가 쓰임
+
+- 초기화
+struct Node {
+	int key;
+	Node *left, *right;
+};
+
+// 정적 할당 방식
+constexpr size_t MAX_NODE = 10000;
+
+int node_count = 0;
+Node node_pool[MAX_NODE];
+
+Node* new_node(int x) {
+	node_pool[node_count].key = x;
+	node_pool[node_count].left = nullptr;
+	node_pool[node_count].right = nullptr;
+
+	return &node_pool[node_count++];
+}
+
+Node* root;
+void init() {
+	root = nullptr;
+}
+
+- 삽입
+// O(트리의 높이)
+void insert(int x) {
+	root = insert_rec(root, x);
+}
+
+Node* insert_rec(Node* node, int x) {
+	if (node == nullptr) {
+		return new_node(x);
+	}
+
+	if (x < node->key) {
+		node->left = insert_rec(node->left, x);
+	} else if (x > node->key) {
+		node->right = insert_rec(node->right, x);
+	}
+
+	return node;
+}
+
+- 삭제
+// O(트리의 높이)
+void remove(int x) {
+	root = remove_rec(root, x);
+}
+
+Node* remove_rec(Node* node, int x) {
+	if (node == nullptr) {
+		return node;
+	}
+
+	if (x < node->key) {
+		node->left = remove_rec(node->left, x);
+	} else if (x > node->key) {
+		node->right = remove_rec(node->right, x);
+	} else {
+		if (node->left == nullptr) {
+			return node->right;
+		} else if (node->right == nullptr) {
+			return node->left;
+		}
+		const int temp = find_min_key(node->right);
+		node->key = temp;
+		node->right = remove_rec(node->right, temp);
+	}
+
+	return node;
+}
+
+int find_min_key(Node* node) const {
+	while (node->left != nullptr) {
+		node = node->left;
+	}
+	return node->key;
+}
+
+- 탐색
+// O(트리의 높이)
+bool find(int x) {
+	Node* node = root;
+	while (node != nullptr) {
+		if (node->key == x) {
+			return true;
+		}
+		node = x < node->key ? node->left : node->right;
+	}
+	return false;
+}
+
+- 순회
+1) pre-order (전위 순회)
+자신 -> 왼쪽 서브트리 -> 오른쪽 서브트리 순서로 방문
+
+2) in-order (중위 순회)
+왼쪽 서브트리 -> 자신 -> 오른쪽 서브트리 순서로 방문
+Binary Search Tree에서 in-order 방문 순서는 key를 정렬한 결과와 같음
+
+3) post-order (후위 순회)
+왼쪽 서브트리 -> 오른쪽 서브트리 -> 자신 순서로 방문
+자식 노드에서 계산 결과를 활용할 수 있어 이를 이용한 예로 계산기, 세그먼트 트리가 있음
+
+- Self-Balanced Binary Search Tree
+높이의 하한은 logN이며, 이렇게 높이가 O(logN)인 트리를 height-balanced하다고 함
+이런 트리에서는 삽입/삭제/탐색이 모두 O(logN)이 보장됨
+원소가 삽입/삭제될 때마다 height-balanced하게 높이를 조절하는 Binary Search Tree를 Self-Balanced Binary Search Tree라고 함
+예시로는 Red-Black Tree, Splay Tree, B-Tree 등이 있음
+
+- 전체 구현
+#include <array>
+#include <iostream>
+#include <string>
+#include <vector>
+
+struct Node {
+	int key;
+	Node *left, *right;
+};
+
+constexpr size_t MAX_NODE = 1000;
+
+int node_count = 0;
+Node node_pool[MAX_NODE];
+
+Node* new_node(int x) {
+	node_pool[node_count].key = x;
+	node_pool[node_count].left = nullptr;
+	node_pool[node_count].right = nullptr;
+
+	return &node_pool[node_count++];
+}
+
+class BinarySearchTree {
+	Node* root;
+
+public:
+	BinarySearchTree() = default;
+
+	void init() {
+		root = nullptr;
+		node_count = 0;
+	}
+
+	void insert(int x) {
+		if (root == nullptr) {
+			root = new_node(x);
+			return;
+		}
+
+		for (Node* node = root; node->key != x;) {
+			Node** child = x < node->key ? &node->left : &node->right;
+			if (*child == nullptr) {
+				*child = new_node(x);
+				return;
+			}
+			node = *child;
+		}
+	}
+
+	void remove(int x) {
+		Node* parent = nullptr;
+		Node* node = root;
+		while (node != nullptr && node->key != x) {
+			parent = node;
+			node = x < node->key ? node->left : node->right;
+		}
+
+		if (node == nullptr) {
+			return;
+		}
+
+		if (node->left == nullptr && node->right == nullptr) {
+			if (parent == nullptr) {
+				root = nullptr;
+			} else {
+				(node == parent->left ? parent->left : parent->right) = nullptr;
+			}
+		} else if (node->left == nullptr) {
+			*node = *node->right;
+		} else if (node->right == nullptr) {
+			*node = *node->left;
+		} else {
+			// find successor
+			parent = node;
+			Node* successor = node->right;
+			while (successor->left != nullptr) {
+				parent = successor;
+				successor = successor->left;
+			}
+			node->key = successor->key;
+			(successor == parent->left ? parent->left : parent->right) = successor->right;
+		}
+	}
+
+	bool find(int x) const {
+		Node* node = root;
+		while (node != nullptr) {
+			if (node->key == x) {
+				return true;
+			}
+			node = x < node->key ? node->left : node->right;
+		}
+		return false;
+	}
+
+	void traversal(int type) const {
+		if (type == 0) {
+			std::cout << "pre-order  ";
+			pre_order();
+		} else if (type == 1) {
+			std::cout << "in-order  ";
+			in_order();
+		} else {
+			std::cout << "post-order  ";
+			post_order();
+		}
+		std::cout << '\n';
+	}
+
+private:
+	void pre_order() const {
+		std::vector< Node*> stk;
+		stk.emplace_back(root);
+
+		while (!stk.empty()) {
+			const Node* node = stk.back();
+			stk.pop_back();
+
+			std::cout << node->key << ' ';
+
+			if (node->right != nullptr) stk.emplace_back(node->right);
+			if (node->left != nullptr) stk.emplace_back(node->left);
+		}
+		std::cout << '\n';
+	}
+
+	void in_order() const {
+		// 구현해보세요!
+	}
+
+	void post_order() const {
+		// 구현해보세요!
+	}
+};
+
+int main() {
+	BinarySearchTree tree {};
+	// 0   : 초기화
+	// 1 x : x 삽입
+	// 2 x : x 삭제
+	// 3 x : x 탐색
+	// 4 t : 순회 (t: 0 전위, 1 중위, 2 후위)
+	int cmd, x;
+	for (;;) {
+		std::cin >> cmd;
+		switch (cmd) {
+		case 0:
+			tree.init();
+			break;
+		case 1:
+			std::cin >> x;
+			tree.insert(x);
+			break;
+		case 2:
+			std::cin >> x;
+			tree.remove(x);
+			break;
+		case 3:
+			std::cin >> x;
+			std::cout << (tree.find(x) ? "found" : "not found") << '\n';
+			break;
+		case 4:
+			std::cin >> x;
+			if (x < 0 || x > 2) return std::cout << "invalid traversal type\n", 0;
+			tree.traversal(x);
+			break;
+		default:
+			return std::cout << "invalid command\n", 0;
+		}
+	}
+}
