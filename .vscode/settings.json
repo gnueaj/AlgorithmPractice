@@ -43,7 +43,8 @@
         "functional": "cpp",
         "set": "cpp",
         "ctime": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "stack": "cpp",
+        "string": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
 }
