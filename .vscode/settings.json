@@ -45,6 +45,7 @@
         "ctime": "cpp",
         "list": "cpp",
         "stack": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "unordered_set": "cpp"
     },
 }
