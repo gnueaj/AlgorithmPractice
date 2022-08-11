@@ -50,6 +50,8 @@
         "memory": "cpp",
         "unordered_map": "cpp",
         "xfunctional": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "*.tcc": "cpp",
+        "array": "cpp"
     },
 }
