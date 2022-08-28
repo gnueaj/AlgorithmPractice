@@ -1,0 +1,45 @@
+int solve() 
+{
+	while(left < right) 
+	{
+	    int mid = (left + right) / 2;
+	    if(check(mid)) 
+	    {
+	        right = mid;
+	    }
+	    else 
+	    {
+	        left = mid + 1;
+	    }
+	    return right;
+	}
+}
+
+int solve() 
+{
+	int l = MIN - 1, r = MAX;
+	while (l != r) {
+		int m = r - (r - l) / 2;
+		f(m) ? l = m : r = m - 1;
+	}
+	return l;
+}
+
+const int* lower_bound(const int* l, const int* r, int x) 
+{
+	while (l != r) 
+    {
+		const int* const mid = l + (r - l) / 2;
+		*mid >= x ? r = mid : l = mid + 1;
+	}
+	return l;
+}
+
+const int* upper_bound(const int* l, const int* r, int x) {
+	while (l != r) 
+    {
+		const int* const mid = l + (r - l) / 2;
+		*mid > x ? r = mid : l = mid + 1;
+	}
+	return l;
+}
